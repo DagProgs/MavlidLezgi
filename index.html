@@ -1,596 +1,76 @@
 <!doctype html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Лезги Мавлидар</title>
+    <link rel="icon" type="image/png" href="icons/icon-96x96.png" />
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
+    <script type="module" crossorigin src="/MavlidLezgi/assets/index-BmXnAyz4.js"></script>
+    <link rel="stylesheet" crossorigin href="/MavlidLezgi/assets/index-C0IIijMs.css">
+  <link rel="manifest" href="/MavlidLezgi/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/MavlidLezgi/registerSW.js"></script></head>
+  <body>
+    <header id="app-header" class="app-header">
+      <h1 id="header-title">Лезги Мавлидар</h1>
+    </header>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <main id="app-main" class="app-main">
+      <section id="view-all" class="scroll-view" aria-label="Все мавлиды"></section>
+      <section id="view-favorites" class="scroll-view" hidden aria-label="Избранные"></section>
+      <section id="view-loved" class="scroll-view" hidden aria-label="Любимые"></section>
+      <section id="view-stanzas" class="scroll-view" hidden aria-label="Куплеты"></section>
+      <section id="view-custom" class="scroll-view" hidden aria-label="Свои мавлиды"></section>
+      <section id="view-detail" class="scroll-view" hidden aria-label="Чтение мавлида"></section>
+    </main>
 
-  <title>Лезги Мавлидар</title>
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
-  <script type="module" crossorigin src="/MavlidLezgi/assets/index-DoeDjVtO.js"></script>
-  <link rel="stylesheet" crossorigin href="/MavlidLezgi/assets/index-B3ZNjqYD.css">
-<link rel="manifest" href="/MavlidLezgi/manifest.webmanifest"></head>
+    <footer id="app-footer" class="app-footer">
+      <nav class="bottom-nav" aria-label="Основная навигация">
+        <button type="button" class="nav-tab active" data-tab="all">
+          <span class="nav-icon" data-icon="book"></span>
+          <span class="nav-label">Все</span>
+        </button>
+        <button type="button" class="nav-tab" data-tab="favorites">
+          <span class="nav-icon" data-icon="star"></span>
+          <span class="nav-label">Избранные <b id="badge-favorites" class="nav-badge">0</b></span>
+        </button>
+        <button type="button" class="nav-tab" data-tab="loved">
+          <span class="nav-icon" data-icon="heart"></span>
+          <span class="nav-label">Любимые <b id="badge-loved" class="nav-badge">0</b></span>
+        </button>
+        <button type="button" class="nav-tab" data-tab="stanzas">
+          <span class="nav-icon" data-icon="bookmark"></span>
+          <span class="nav-label">Куплеты <b id="badge-stanzas" class="nav-badge">0</b></span>
+        </button>
+        <button type="button" class="nav-tab" data-tab="custom">
+          <span class="nav-icon" data-icon="pen"></span>
+          <span class="nav-label">Свои <b id="badge-custom" class="nav-badge">0</b></span>
+        </button>
+      </nav>
+    </footer>
 
-<body>
-  <header class="header">
-  <button
-    class="header__back-btn"
-    id="back-btn"
-    type="button"
-    aria-label="Назад к списку"
-    hidden
-  >
-    <i data-lucide="arrow-left"></i>
-  </button>
-  <h1 class="header__title" id="header-title">Лезги Мавлидар</h1>
-  <button
-    class="header__settings-btn"
-    id="settings-open-btn"
-    type="button"
-    aria-label="Настройки"
-  >
-    <i data-lucide="settings"></i>
-  </button>
-</header>
-
-  <main class="main">
-  <div class="mavlid-list" id="mavlid-list"></div>
-
-  <article class="mavlid-reader" id="mavlid-reader" hidden>
-    <div class="mavlid-reader__header">
-      <h2 class="mavlid-reader__title" id="mavlid-article-title"></h2>
-      <button
-        class="mavlid-reader__love-btn"
-        id="mavlid-love-btn"
-        type="button"
-        aria-label="Добавить в любимые"
-      >
-        <i data-lucide="heart"></i>
-      </button>
-    </div>
-    <div class="mavlid-reader__content" id="mavlid-content"></div>
-  </article>
-</main>
-
-  <footer class="footer">
-  <div class="favorites-tabs" id="favorites-tabs" role="tablist" aria-label="Фильтр мавлидов">
-  <button
-    class="favorites-tab is-active"
-    type="button"
-    role="tab"
-    aria-selected="true"
-    data-tab="all"
-  >
-    <i data-lucide="book-open"></i>
-    <span class="favorites-tab__label">Все</span>
-  </button>
-  <button
-    class="favorites-tab"
-    type="button"
-    role="tab"
-    aria-selected="false"
-    data-tab="favorites"
-  >
-    <i data-lucide="star"></i>
-    <span class="favorites-tab__label">Избранные</span>
-    <span class="favorites-tab__badge" id="favorites-count-badge" hidden>0</span>
-  </button>
-  <button
-  class="favorites-tab"
-  id="loved-tab-btn"
-  type="button"
-  role="tab"
-  aria-selected="false"
-  data-tab="loved"
->
-  <i data-lucide="heart"></i>
-  <span class="favorites-tab__label">Любимые</span>
-  <span class="favorites-tab__badge loved-tab__badge" id="loved-count-badge" hidden>0</span>
-</button>
-
-<!-- Окно подтверждения очистки любимых -->
-<div class="confirm-overlay" id="clear-loved-overlay" hidden>
-  <div
-    class="confirm-dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="clear-loved-title"
-  >
-    <h3 class="confirm-dialog__title" id="clear-loved-title">Очистить любимые?</h3>
-    <p class="confirm-dialog__text">
-      Все добавленные мавлиды будут удалены из списка любимых.
-    </p>
-    <div class="confirm-dialog__actions">
-      <button class="confirm-dialog__btn confirm-dialog__btn--cancel" id="cancel-clear-loved-btn" type="button">
-        Отмена
-      </button>
-      <button class="confirm-dialog__btn confirm-dialog__btn--danger" id="confirm-clear-loved-btn" type="button">
-        Очистить
-      </button>
-    </div>
-  </div>
-</div>
-
-  <button
-  class="favorites-tab"
-  id="couplets-tab-btn"
-  type="button"
-  role="tab"
-  aria-selected="false"
-  data-tab="couplets"
->
-  <i data-lucide="feather"></i>
-  <span class="favorites-tab__label">Куплеты</span>
-  <span class="favorites-tab__badge couplets-tab__badge" id="couplets-count-badge" hidden>0</span>
-</button>
-
-<!-- Окно подтверждения очистки куплетов -->
-<div class="confirm-overlay" id="clear-couplets-overlay" hidden>
-  <div
-    class="confirm-dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="clear-couplets-title"
-  >
-    <h3 class="confirm-dialog__title" id="clear-couplets-title">Очистить куплеты?</h3>
-    <p class="confirm-dialog__text">
-      Все сохранённые куплеты будут удалены из этого списка.
-    </p>
-    <div class="confirm-dialog__actions">
-      <button class="confirm-dialog__btn confirm-dialog__btn--cancel" id="cancel-clear-couplets-btn" type="button">
-        Отмена
-      </button>
-      <button class="confirm-dialog__btn confirm-dialog__btn--danger" id="confirm-clear-couplets-btn" type="button">
-        Очистить
-      </button>
-    </div>
-  </div>
-</div>
-
-  <button
-  class="favorites-tab"
-  id="custom-tab-btn"
-  type="button"
-  role="tab"
-  aria-selected="false"
-  data-tab="custom"
->
-  <i data-lucide="file-pen-line"></i>
-  <span class="favorites-tab__label">Свои</span>
-  <span class="favorites-tab__badge custom-tab__badge" id="custom-count-badge" hidden>0</span>
-</button>
-
-<!-- Модальное окно редактора своего мавлида -->
-<div class="custom-editor-overlay" id="custom-editor-overlay" hidden>
-  <div
-    class="custom-editor-dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="custom-editor-heading"
-  >
-    <div class="custom-editor__header">
-      <h3 class="custom-editor__heading" id="custom-editor-heading">Новый мавлид</h3>
-      <button
-        class="custom-editor__close"
-        id="close-custom-editor-btn"
-        type="button"
-        aria-label="Закрыть редактор"
-      >
-        <i data-lucide="x"></i>
-      </button>
-    </div>
-
-    <div class="custom-editor__body">
-      <label class="custom-editor__field">
-        <span class="custom-editor__label">Заголовок</span>
+    <!-- Модальное окно добавления своего мавлида -->
+    <div id="custom-modal" class="modal-backdrop" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="custom-modal-title">
+        <h3 id="custom-modal-title">Новый мавлид</h3>
         <input
-          class="custom-editor__input"
-          id="custom-mavlid-title-input"
+          id="custom-title-input"
+          class="modal-input"
           type="text"
-          placeholder="Введите название мавлида..."
-          maxlength="100"
+          placeholder="Заголовок"
+          maxlength="120"
         />
-      </label>
-
-      <label class="custom-editor__field">
-        <span class="custom-editor__label">Текст стиха (куплеты разделяйте пустой строкой)</span>
         <textarea
-          class="custom-editor__textarea"
-          id="custom-mavlid-text-input"
+          id="custom-lines-input"
+          class="modal-textarea"
           rows="8"
-          placeholder="Напишите текст мавлида..."
+          placeholder="Текст стиха (куплеты разделяйте пустой строкой)"
         ></textarea>
-      </label>
-    </div>
-
-    <div class="custom-editor__actions">
-      <button
-        class="confirm-dialog__btn confirm-dialog__btn--cancel"
-        id="cancel-custom-editor-btn"
-        type="button"
-      >
-        Отмена
-      </button>
-      <button
-        class="confirm-dialog__btn custom-editor__btn--save"
-        id="save-custom-editor-btn"
-        type="button"
-      >
-        Сохранить
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Окно подтверждения удаления своего мавлида -->
-<div class="confirm-overlay" id="delete-custom-overlay" hidden>
-  <div
-    class="confirm-dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="delete-custom-title"
-  >
-    <h3 class="confirm-dialog__title" id="delete-custom-title">Удалить мавлид?</h3>
-    <p class="confirm-dialog__text">
-      Этот мавлид будет удалён из «Своих», а также из избранного, любимых и куплетов.
-    </p>
-    <div class="confirm-dialog__actions">
-      <button
-        class="confirm-dialog__btn confirm-dialog__btn--cancel"
-        id="cancel-delete-custom-btn"
-        type="button"
-      >
-        Отмена
-      </button>
-      <button
-        class="confirm-dialog__btn confirm-dialog__btn--danger"
-        id="confirm-delete-custom-btn"
-        type="button"
-      >
-        Удалить
-      </button>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<!-- Окно подтверждения очистки избранного -->
-<div class="confirm-overlay" id="clear-favorites-overlay" hidden>
-  <div
-    class="confirm-dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="clear-favorites-title"
-  >
-    <h3 class="confirm-dialog__title" id="clear-favorites-title">Очистить избранное?</h3>
-    <p class="confirm-dialog__text">
-      Все добавленные мавлиды будут удалены из списка избранных.
-    </p>
-    <div class="confirm-dialog__actions">
-      <button class="confirm-dialog__btn confirm-dialog__btn--cancel" id="cancel-clear-fav-btn" type="button">
-        Отмена
-      </button>
-      <button class="confirm-dialog__btn confirm-dialog__btn--danger" id="confirm-clear-fav-btn" type="button">
-        Очистить
-      </button>
-    </div>
-  </div>
-</div>
-
-  <button
-  class="scroll-status"
-  id="scroll-status-btn"
-  type="button"
-  aria-label="Переключить паузу автопрокрутки"
-  hidden
->
-  <span class="scroll-status__dot" id="scroll-status-dot"></span>
-  <span class="scroll-status__text" id="scroll-status-text">Прокрутка · Скорость 3</span>
-</button>
-
-</footer>
-
-  <div class="settings-overlay" id="settings-overlay"></div>
-
-<aside class="settings-sheet" id="settings-sheet" aria-hidden="true">
-  <div class="settings-sheet__handle"></div>
-  <div class="settings-sheet__header">
-    <h2 class="settings-sheet__title">Настройки</h2>
-    <button class="settings-sheet__close" id="settings-close-btn" type="button" aria-label="Закрыть">
-      <i data-lucide="x"></i>
-    </button>
-  </div>
-  <div class="settings-sheet__body">
-    <div class="settings-group">
-  <span class="settings-group__label">Тема оформления</span>
-  <div class="theme-switcher" role="group" aria-label="Выбор темы">
-    <button class="theme-switcher__btn is-active" type="button" data-theme="light">
-      <i data-lucide="sun"></i>
-      <span>Светлая</span>
-    </button>
-    <button class="theme-switcher__btn" type="button" data-theme="dark">
-      <i data-lucide="moon"></i>
-      <span>Тёмная</span>
-    </button>
-  </div>
-</div>
-
-    <!-- Кнопка в основном окне настроек (показывается только при чтении мавлида) -->
-<div class="settings-group" id="text-settings-entry" hidden>
-  <button class="settings-nav-btn" id="open-text-settings-btn" type="button">
-    <span class="settings-nav-btn__left">
-      <i data-lucide="type"></i>
-      <span>Настройки текста</span>
-    </span>
-    <i data-lucide="chevron-right"></i>
-  </button>
-</div>
-
-<!-- Отдельное выдвижное окно (Bottom Sheet) для параметров текста -->
-<aside class="text-settings-sheet" id="text-settings-sheet" aria-hidden="true">
-  <div class="settings-sheet__handle"></div>
-  <div class="settings-sheet__header">
-    <button
-      class="text-settings-sheet__back"
-      id="back-text-settings-btn"
-      type="button"
-      aria-label="Назад в настройки"
-    >
-      <i data-lucide="arrow-left"></i>
-    </button>
-    <h2 class="settings-sheet__title">Настройки текста</h2>
-    <button
-      class="text-settings-sheet__close"
-      id="close-text-settings-btn"
-      type="button"
-      aria-label="Закрыть"
-    >
-      <i data-lucide="x"></i>
-    </button>
-  </div>
-
-  <div class="settings-sheet__body">
-    <div class="settings-group" id="font-size-group" hidden>
-  <div class="font-size-header">
-    <span class="settings-group__label">Размер текста</span>
-    <span class="font-size-value" id="font-size-value">18 px</span>
-  </div>
-  <div class="font-size-controls" role="group" aria-label="Размер шрифта">
-    <button class="font-size-btn" id="font-decrease-btn" type="button" aria-label="Уменьшить шрифт">
-      <i data-lucide="minus"></i>
-      <span>Уменьшить</span>
-    </button>
-    <button class="font-size-btn font-size-btn--reset" id="font-reset-btn" type="button" aria-label="Сбросить шрифт">
-      <i data-lucide="rotate-ccw"></i>
-      <span>Сброс</span>
-    </button>
-    <button class="font-size-btn" id="font-increase-btn" type="button" aria-label="Увеличить шрифт">
-      <i data-lucide="plus"></i>
-      <span>Увеличить</span>
-    </button>
-  </div>
-</div>
-
-    <div class="settings-group" id="text-style-group" hidden>
-  <span class="settings-group__label">Начертание текста</span>
-  <div class="text-style-controls" role="group" aria-label="Начертание текста">
-    <button class="text-style-btn" id="text-bold-btn" type="button" aria-pressed="false">
-      <i data-lucide="bold"></i>
-      <span>Жирный</span>
-    </button>
-    <button class="text-style-btn" id="text-italic-btn" type="button" aria-pressed="false">
-      <i data-lucide="italic"></i>
-      <span>Курсив</span>
-    </button>
-  </div>
-</div>
-
-    <div class="settings-group" id="font-family-group" hidden>
-  <span class="settings-group__label">Шрифт текста</span>
-  <div class="font-family-controls" role="group" aria-label="Выбор шрифта">
-    <button
-      class="font-family-btn font-family-btn--sans is-active"
-      type="button"
-      data-font="sans"
-    >
-      Обычный
-    </button>
-    <button
-      class="font-family-btn font-family-btn--serif"
-      type="button"
-      data-font="serif"
-    >
-      Книжный
-    </button>
-  </div>
-</div>
-
-  </div>
-</aside>
-
-    <div class="settings-group" id="auto-scroll-group" hidden>
-  <div class="auto-scroll-header">
-    <span class="settings-group__label">Автопрокрутка текста</span>
-    <label class="switch">
-      <input type="checkbox" id="auto-scroll-toggle" />
-      <span class="switch__slider"></span>
-    </label>
-  </div>
-  <div class="auto-scroll-speed" id="auto-scroll-speed-box" hidden>
-    <div class="auto-scroll-speed__top">
-      <span class="auto-scroll-speed__label">Скорость прокрутки</span>
-      <span class="auto-scroll-speed__value" id="auto-scroll-speed-value">3</span>
-    </div>
-    <input
-      type="range"
-      id="auto-scroll-speed-range"
-      class="auto-scroll-range"
-      min="1"
-      max="10"
-      step="1"
-      value="3"
-    />
-  </div>
-</div>
-
-    <div class="install-overlay" id="ios-install-banner" hidden>
-  <div
-    class="install-modal install-modal--ios"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="ios-install-title"
-  >
-    <div class="install-modal__header">
-      <div class="install-modal__badge">
-        <i data-lucide="smartphone"></i>
+        <div class="modal-actions">
+          <button type="button" id="custom-cancel-btn" class="btn-secondary">Отмена</button>
+          <button type="button" id="custom-save-btn" class="btn-primary">Сохранить</button>
+        </div>
       </div>
-      <div class="install-modal__titles">
-        <h3 class="install-modal__title" id="ios-install-title">Установить на iPhone</h3>
-        <p class="install-modal__subtitle">Добавьте на экран «Домой» для быстрого запуска и работы без интернета</p>
-      </div>
-      <button
-        class="install-modal__close"
-        id="ios-install-close-btn"
-        type="button"
-        aria-label="Закрыть подсказку"
-      >
-        <i data-lucide="x"></i>
-      </button>
     </div>
-
-    <ol class="install-modal__steps">
-      <li class="install-modal__step">
-        <span class="install-modal__step-num">1</span>
-        <span class="install-modal__step-text">
-          Откройте эту ссылку в браузере <strong>Safari</strong> (если открыли в Telegram или WhatsApp — нажмите значок компаса в правом нижнем углу).
-        </span>
-      </li>
-      <li class="install-modal__step">
-        <span class="install-modal__step-num">2</span>
-        <span class="install-modal__step-text">
-          В нижней панели Safari нажмите кнопку <strong>«Поделиться»</strong>
-          <span class="install-modal__inline-icon"><i data-lucide="share"></i></span>
-          (квадрат со стрелкой вверх).
-        </span>
-      </li>
-      <li class="install-modal__step">
-        <span class="install-modal__step-num">3</span>
-        <span class="install-modal__step-text">
-          Пролистайте открывшееся меню вниз и нажмите пункт <strong>«На экран „Домой“»</strong>
-          <span class="install-modal__inline-icon"><i data-lucide="square-plus"></i></span>.
-        </span>
-      </li>
-      <li class="install-modal__step">
-        <span class="install-modal__step-num">4</span>
-        <span class="install-modal__step-text">
-          В правом верхнем углу нажмите <strong>«Добавить»</strong> — иконка <strong>«Мавлидар»</strong> появится на рабочем столе.
-        </span>
-      </li>
-    </ol>
-
-    <button class="install-modal__ok-btn" id="ios-install-ok-btn" type="button">
-      Понятно
-    </button>
-  </div>
-</div>
-
-    <div class="install-overlay" id="android-install-banner" hidden>
-  <div
-    class="install-modal install-modal--android"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="android-install-title"
-  >
-    <div class="install-modal__header">
-      <div class="install-modal__badge install-modal__badge--android">
-        <i data-lucide="download"></i>
-      </div>
-      <div class="install-modal__titles">
-        <h3 class="install-modal__title" id="android-install-title">Установить приложение</h3>
-        <p class="install-modal__subtitle">Добавьте на рабочий стол для быстрого доступа и работы без интернета</p>
-      </div>
-      <button
-        class="install-modal__close"
-        id="android-install-close-btn"
-        type="button"
-        aria-label="Закрыть подсказку"
-      >
-        <i data-lucide="x"></i>
-      </button>
-    </div>
-
-    <button
-      class="android-install__action-btn"
-      id="android-install-trigger-btn"
-      type="button"
-      hidden
-    >
-      <i data-lucide="download"></i>
-      <span>Установить сейчас</span>
-    </button>
-
-    <div class="android-install__guide">
-      <div class="android-install__guide-title">Как установить вручную через меню браузера:</div>
-      <ol class="install-modal__steps">
-        <li class="install-modal__step">
-          <span class="install-modal__step-num">1</span>
-          <span class="install-modal__step-text">
-            Нажмите на кнопку меню браузера <strong>«⋮»</strong>
-            <span class="install-modal__inline-icon"><i data-lucide="ellipsis-vertical"></i></span>
-            в правом верхнем углу экрана (в Яндекс Браузере — значок <strong>«≡»</strong> внизу).
-          </span>
-        </li>
-        <li class="install-modal__step">
-          <span class="install-modal__step-num">2</span>
-          <span class="install-modal__step-text">
-            Выберите пункт <strong>«Установить приложение»</strong> или <strong>«Добавить на гл. экран»</strong>.
-          </span>
-        </li>
-        <li class="install-modal__step">
-          <span class="install-modal__step-num">3</span>
-          <span class="install-modal__step-text">
-            В появившемся окне нажмите <strong>«Установить»</strong> — иконка <strong>«Мавлидар»</strong> появится на рабочем столе.
-          </span>
-        </li>
-      </ol>
-    </div>
-
-    <button class="install-modal__ok-btn" id="android-install-ok-btn" type="button">
-      Понятно
-    </button>
-  </div>
-</div>
-
-
-
-    <div class="settings-group settings-group--danger" id="clear-cache-group">
-      <button class="settings-clear-btn" id="settings-clear-cache-btn" type="button">
-        <i data-lucide="refresh-cw"></i>
-        <span>Сбросить кэш</span>
-      </button>
-    </div>
-  </div>
-</aside>
-
-<div class="confirm-overlay" id="clear-cache-overlay" hidden>
-  <div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="clear-cache-title">
-    <h3 class="confirm-dialog__title" id="clear-cache-title">Сбросить кэш?</h3>
-    <p class="confirm-dialog__text">
-      Кэш приложения будет очищен, а страница обновится. Ваши сохранённые мавлиды, избранное и куплеты останутся.
-    </p>
-    <div class="confirm-dialog__actions">
-      <button class="confirm-dialog__btn confirm-dialog__btn--cancel" id="cancel-clear-cache-btn" type="button">
-        Отмена
-      </button>
-      <button class="confirm-dialog__btn confirm-dialog__btn--danger" id="confirm-clear-cache-btn" type="button">
-        Сбросить
-      </button>
-    </div>
-  </div>
-</div>
-</body>
-
+
+  </body>
 </html>
