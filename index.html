@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" href="./icons/icon-192x192.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192x192.png" />
     <title>Лезги Мавлидар</title>
-    <style>#app-splash-loader{z-index:9999;padding:env(safe-area-inset-top) 24px env(safe-area-inset-bottom);color:#162219;background-color:#f3f6f4;flex-direction:column;justify-content:center;align-items:center;gap:18px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;transition:opacity .32s,visibility .32s;display:flex;position:fixed;inset:0}html[data-theme=dark] #app-splash-loader{color:#eef5f0;background-color:#0f1612}#app-splash-loader.hidden{opacity:0;visibility:hidden;pointer-events:none}.splash-icon-wrap{border-radius:28px;width:108px;height:108px;animation:1.6s ease-in-out infinite splashPulse;overflow:hidden;box-shadow:0 14px 34px #29b2123d}.splash-icon-wrap img{object-fit:cover;width:100%;height:100%;display:block}.splash-title{letter-spacing:-.2px;font-size:21px;font-weight:700}.splash-spinner{border:3px solid #29b21238;border-top-color:#29b212;border-radius:50%;width:26px;height:26px;animation:.75s linear infinite splashSpin}@keyframes splashSpin{to{transform:rotate(360deg)}}@keyframes splashPulse{0%,to{transform:scale(1)}50%{transform:scale(1.04)}}</style>
+    <style>html,body{color:#162219;background-color:#f3f6f4;margin:0;padding:0}html[data-theme=dark],html[data-theme=dark] body{color:#eef5f0;background-color:#0f1612}#app-splash-loader{z-index:9999;padding:env(safe-area-inset-top) 24px env(safe-area-inset-bottom);color:#162219;background-color:#f3f6f4;flex-direction:column;justify-content:center;align-items:center;gap:18px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;transition:opacity .28s,visibility .28s;display:flex;position:fixed;inset:0}html[data-theme=dark] #app-splash-loader{color:#eef5f0;background-color:#0f1612}#app-splash-loader.hidden{opacity:0;visibility:hidden;pointer-events:none}.splash-icon-wrap{border-radius:28px;width:108px;height:108px;animation:1.6s ease-in-out infinite splashPulse;overflow:hidden;box-shadow:0 14px 34px #29b2123d}.splash-icon-wrap img{object-fit:cover;width:100%;height:100%;display:block}.splash-title{letter-spacing:-.2px;font-size:21px;font-weight:700}.splash-spinner{border:3px solid #29b21238;border-top-color:#29b212;border-radius:50%;width:26px;height:26px;animation:.75s linear infinite splashSpin}@keyframes splashSpin{to{transform:rotate(360deg)}}@keyframes splashPulse{0%,to{transform:scale(1)}50%{transform:scale(1.04)}}</style>
     <script>
       (function () {
         try {
@@ -20,10 +20,26 @@
             document.documentElement.setAttribute('data-theme', 'dark');
           }
         } catch (e) {}
+
+        // Страховка: заставка гарантированно скроется даже при медленной сети
+        window.__hideSplashLoader = function () {
+          var loader = document.getElementById('app-splash-loader');
+          if (!loader || loader.classList.contains('hidden')) return;
+          loader.classList.add('hidden');
+          window.setTimeout(function () {
+            if (loader && loader.parentNode) {
+              loader.parentNode.removeChild(loader);
+            }
+          }, 320);
+        };
+
+        window.setTimeout(function () {
+          window.__hideSplashLoader();
+        }, 2500);
       })();
     </script>
-    <script type="module" crossorigin src="/MavlidLezgi/assets/index-5FAM4Hgi.js"></script>
-    <link rel="stylesheet" crossorigin href="/MavlidLezgi/assets/index-CLb15d0l.css">
+    <script type="module" crossorigin src="/MavlidLezgi/assets/index-VTHsG3bH.js"></script>
+    <link rel="stylesheet" crossorigin href="/MavlidLezgi/assets/style-CLb15d0l.css">
   <link rel="manifest" href="/MavlidLezgi/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/MavlidLezgi/registerSW.js"></script></head>
   <body>
     <div id="app-splash-loader" aria-label="Загрузка приложения">
