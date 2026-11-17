@@ -1,76 +1,21 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>Лезги Мавлидар</title>
-    <link rel="icon" type="image/png" href="icons/icon-96x96.png" />
-    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
-    <script type="module" crossorigin src="/MavlidLezgi/assets/index-UiWjejTV.js"></script>
-    <link rel="stylesheet" crossorigin href="/MavlidLezgi/assets/index-C4fzd4X3.css">
-  <link rel="manifest" href="/MavlidLezgi/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/MavlidLezgi/registerSW.js"></script></head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#29B212" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/MavlidLezgi/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/MavlidLezgi/icons/icon-152x152.png" />
+    <title>Лезги Мавлид</title>
+    <script type="module" crossorigin src="/MavlidLezgi/assets/index-D08uWfyB.js"></script>
+    <link rel="stylesheet" crossorigin href="/MavlidLezgi/assets/index-cRsdPe1m.css">
+  <link rel="manifest" href="/MavlidLezgi/manifest.webmanifest"></head>
   <body>
-    <header id="app-header" class="app-header">
-      <h1 id="header-title">Лезги Мавлидар</h1>
-    </header>
-
-    <main id="app-main" class="app-main">
-      <section id="view-all" class="scroll-view" aria-label="Все мавлиды"></section>
-      <section id="view-favorites" class="scroll-view" hidden aria-label="Избранные"></section>
-      <section id="view-loved" class="scroll-view" hidden aria-label="Любимые"></section>
-      <section id="view-stanzas" class="scroll-view" hidden aria-label="Куплеты"></section>
-      <section id="view-custom" class="scroll-view" hidden aria-label="Свои мавлиды"></section>
-      <section id="view-detail" class="scroll-view" hidden aria-label="Чтение мавлида"></section>
-    </main>
-
-    <footer id="app-footer" class="app-footer">
-      <nav class="bottom-nav" aria-label="Основная навигация">
-        <button type="button" class="nav-tab active" data-tab="all">
-          <span class="nav-icon" data-icon="book"></span>
-          <span class="nav-label">Все</span>
-        </button>
-        <button type="button" class="nav-tab" data-tab="favorites">
-          <span class="nav-icon" data-icon="star"></span>
-          <span class="nav-label">Избранные <b id="badge-favorites" class="nav-badge">0</b></span>
-        </button>
-        <button type="button" class="nav-tab" data-tab="loved">
-          <span class="nav-icon" data-icon="heart"></span>
-          <span class="nav-label">Любимые <b id="badge-loved" class="nav-badge">0</b></span>
-        </button>
-        <button type="button" class="nav-tab" data-tab="stanzas">
-          <span class="nav-icon" data-icon="bookmark"></span>
-          <span class="nav-label">Куплеты <b id="badge-stanzas" class="nav-badge">0</b></span>
-        </button>
-        <button type="button" class="nav-tab" data-tab="custom">
-          <span class="nav-icon" data-icon="pen"></span>
-          <span class="nav-label">Свои <b id="badge-custom" class="nav-badge">0</b></span>
-        </button>
-      </nav>
-    </footer>
-
-    <!-- Модальное окно добавления своего мавлида -->
-    <div id="custom-modal" class="modal-backdrop" hidden>
-      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="custom-modal-title">
-        <h3 id="custom-modal-title">Новый мавлид</h3>
-        <input
-          id="custom-title-input"
-          class="modal-input"
-          type="text"
-          placeholder="Заголовок"
-          maxlength="120"
-        />
-        <textarea
-          id="custom-lines-input"
-          class="modal-textarea"
-          rows="8"
-          placeholder="Текст стиха (куплеты разделяйте пустой строкой)"
-        ></textarea>
-        <div class="modal-actions">
-          <button type="button" id="custom-cancel-btn" class="btn-secondary">Отмена</button>
-          <button type="button" id="custom-save-btn" class="btn-primary">Сохранить</button>
-        </div>
-      </div>
-    </div>
-
+    <div id="root"></div>
   </body>
 </html>
