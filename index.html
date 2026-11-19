@@ -1,18 +1,34 @@
 <!doctype html>
 <html lang="lez">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <link rel="apple-touch-icon" href="/MavlidLezgi/icons/icon-192x192.png" />
-    <title>Лезги Мавлид</title>
-    <script type="module" crossorigin src="/MavlidLezgi/assets/index-BPnBil_Y.js"></script>
-    <link rel="stylesheet" crossorigin href="/MavlidLezgi/assets/index-ix5WucRe.css">
-  <link rel="manifest" href="/MavlidLezgi/manifest.webmanifest"></head>
-  <body>
-    <div id="app"></div>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" href="/MavlidLezgi/icons/icon-192x192.png" />
+  <title>Лезги Мавлид</title>
+  <script>
+    (function () {
+      try {
+        var isDark = localStorage.getItem('mavlid_lezgi_theme') === 'dark';
+        document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+        var metaTheme = document.querySelector('meta[name="theme-color"]');
+        if (metaTheme) metaTheme.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
+        var metaApple = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+        if (metaApple) metaApple.setAttribute('content', isDark ? 'black-translucent' : 'default');
+      } catch (e) { }
+    })();
+  </script>
+  <script type="module" crossorigin src="/MavlidLezgi/assets/index-BPs1-Vv3.js"></script>
+  <link rel="stylesheet" crossorigin href="/MavlidLezgi/assets/index-Dt6gVj5X.css">
+<link rel="manifest" href="/MavlidLezgi/manifest.webmanifest"></head>
+
+
+<body>
+  <div id="app"></div>
+</body>
+
 </html>
